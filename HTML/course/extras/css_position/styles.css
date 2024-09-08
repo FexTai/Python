@@ -1,0 +1,56 @@
+body {
+    height: 3000px;
+    padding-top: 7em;
+    padding-left: 5em;
+}
+
+#sidebar {
+    background-color: green;
+    color: white;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    top: 5em;
+    width: 72px;
+}
+
+#header {
+    background-color: black;
+    color: white;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 5em;
+    z-index: 1;
+}
+
+#div1 {
+    background-color: lightblue;
+    height: 200px;
+    width: 200px;
+    position: static;
+}
+
+#div2 {
+    background-color: lightpink;
+    height: 200px;
+    width: 200px;
+    position: relative;
+}
+
+.abs-div {
+    position: absolute;
+    background-color: red;
+    color: white;
+    right: 0px;
+    top: 0px;
+}
+
+.abs-div1 {
+    position: absolute;
+    background-color: red;
+    color: white;
+    bottom: 10px;
+    right: 10px;
+}

@@ -1,0 +1,98 @@
+#Mäusepopulation
+#Initialissierung
+ANTEIL_JUNG_ERWACHSEN= 1
+ANTEIL_ERWACHSEN_ALT= 1
+GEBURTEN_ERWACHSENE= 1
+GEBURTEN_ALT= 0
+
+schritt = 0
+jung=int(input("Startanzahl der jungen Mäuse:"))
+erwachsen=int(input("Startanzahl der erwachsenen Mäuse:"))
+alt=int(input("Startanzahl der alten Mäuse:"))
+print("")
+
+while schritt < 10:
+    hilf = erwachsen*GEBURTEN_ERWACHSENE + alt*GEBURTEN_ALT
+    alt = round(erwachsen * ANTEIL_ERWACHSEN_ALT)
+    erwachsen = round(jung*ANTEIL_JUNG_ERWACHSEN)
+    jung = hilf
+    schritt = schritt + 1
+    ga= jung+erwachsen+alt
+    PJ= round(jung/ga*100)
+    PE= round(erwachsen/ga*100)
+    PA= round(alt/ga*100)
+    print("schritt",schritt)
+    print(" ")
+    print("Die berechneten Populationswerte sind:")
+    print("Anzahl junger Mäuse:",jung)
+    print("Anzahl erwachsener Mäuse:",erwachsen)
+    print("Anzahl alter Mäuse:",alt)
+    print("Gesamtanzahl der Mäuse:",ga)
+    print(" ")
+    print("j:","/","o"*jung,"/")
+    print("e:","/","o"*erwachsen,"/")
+    print("a:","/","o"*alt,"/")
+    print("Prozentualle Anteile")
+    print( "J:",PJ,"%","E:",PE,"%","A:",PA,"%")  #auf lange dauer gleichen sich die anteile nicht aus
+    
+#Menschenpopulation    
+#Initialissierung
+ANTEIL_0_14weiter= 0.066
+ANTEIL_15_49weiter= 0.029
+ANTEIL_50_64weiter= 0.066
+
+ANTEIL_0_14bleiben= 0.93
+ANTEIL_15_49bleiben= 0.97
+ANTEIL_50_64bleiben= 0.925
+ANTEIL_65bleiben= 0.972
+
+GEBURTEN_15_49= 0.2
+
+schritt = 0
+
+Kinder=float(input("Startanzahl der 0-14 jährigen:"))
+Jugendliche=float(input("Startanzahl der 15-49 jährigen:"))
+Erwachsene=float(input("Startanzahl der 50-64 jährigen:"))
+Alte= float(input("Startanzahl der 65+ jährigen:"))
+print("")
+
+while schritt < 10:
+    hilf = round(Jugendliche*GEBURTEN_15_49+Kinder*ANTEIL_0_14bleiben)
+    Kinder = hilf
+    Jugendliche= round(Kinder*ANTEIL_0_14weiter+Jugendliche*ANTEIL_15_49bleiben)
+    Erwachsene = round(Jugendliche*ANTEIL_15_49weiter + Erwachsene*ANTEIL_50_64bleiben)
+    Alte = round(Erwachsene*ANTEIL_50_64weiter+Alte*ANTEIL_65bleiben)
+    schritt = schritt + 1
+    ga= Kinder+Jugendliche+Erwachsene+Alte
+    PK= round(Kinder/ga*100)
+    PJ= round(Jugendliche/ga*100)
+    PE= round(Erwachsene/ga*100)
+    PA= round(Alte/ga*100)
+    print("schritt",schritt)
+    print(" ")
+    print("Die berechneten Populationswerte sind:")
+    print(" ")
+    print("Anzahl der Kinder:",Kinder,"mio")
+    print("Anzahl der Jugendlichen:",Jugendliche,"mio")
+    print("Anzahl der Erwachsenen:",Erwachsene,"mio")
+    print("Anzahl der Alten:", Alte,"mio")
+    print(" ")
+    print("Gesamtanzahl der Menschen:",ga,"mio")
+    print(" ")
+    print("Prozentualle Anteile:")
+    print(" ")
+    print("Prozentualle Anteile")
+    print( "K:",PK,"%","J:",PJ,"%","E:",PE,"%","A",PA,"%")
+    print(" ")
+    print("Populationspyramide(in mio):")
+    print(" ")
+    print("K:","/","o"*Kinder,"/")
+    print("J:","/","o"*Jugendliche,"/")
+    print("E:","/","o"*Erwachsene,"/")
+    print("A:","/","o"*Alte,"/")
+    
+
+
+
+
+

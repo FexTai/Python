@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .layout-grid1 {
+            display: grid;
+            grid-template-columns: 200px 75px;
+        }
+
+        .layout-grid2 {
+            display: grid;
+            grid-template-columns: 50px 1fr 75px;
+        }
+
+        .layout-grid3 {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            column-gap: 20px;
+            row-gap: 10px;
+            padding: 5px;
+        }
+
+        .big {
+            background-color: purple;
+        }
+        .small {
+            background-color: green;
+        }
+    </style>
+</head>
+<body>
+    <div class="layout-grid1">
+        <div class="big">
+            200px
+        </div>
+        <div class="small">
+            75px
+        </div>
+    </div>
+    <br>
+    <div class="layout-grid2">
+        <div class="big">
+            50px
+        </div>
+        <div class="small">
+            fr
+        </div>
+        <div class="big">
+            75px
+        </div>
+    </div>
+    <br>
+    <div class="layout-grid3">
+        <div class="big">
+            col
+        </div>
+        <div class="small">
+            col
+        </div>
+        <div class="big">
+            col
+        </div>
+        <div class="small">
+            col
+        </div>
+        <div class="big">
+            col
+        </div>
+        <div class="small">
+            col
+        </div>
+    </div>
+</body>
+</html>

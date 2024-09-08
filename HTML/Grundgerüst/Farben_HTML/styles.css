@@ -1,0 +1,34 @@
+ /* Lokale Installation von Roboto */
+@font-face {
+	font-family: Roboto1;
+	src: url(Roboto-Regular.ttf);
+}
+
+ol {
+	font-family: 'Roboto1';
+	font-size: 25px;
+}
+		p {
+			font-family: 'Roboto1';
+      font-size: 25px;	
+		}
+		h1 {
+			font-family: 'Roboto1';		
+		}		
+		h2 {
+			font-family: 'Roboto1';		
+		}			
+		h3 {
+			font-family: 'Roboto1';		
+		}
+		table {
+			font-family: 'Roboto1';
+		}
+		ol {
+			font-family: 'Roboto1';
+		}
+		
+		.line {
+		margin-left: -100px;
+		margin-top: 50px;
+		}

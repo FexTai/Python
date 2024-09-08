@@ -1,0 +1,427 @@
+	<!DOCTYPE html>
+
+<html lang="de">
+	<head>
+	<link rel="stylesheet" href="styles.css">
+	
+
+	<title>Farben in HTML</title>
+	<meta charset="utf-8">
+	<meta name="description" content="Die Farbenkodierungen RGB und Hex erklärt">	
+
+	</head>
+	
+
+	<body bgcolor="white" text="#181717" link="#ff0000" vlink="#ff0000" alink="#0000ff">
+	
+	<hr width="2100px" color="black" class="line">
+	<h1>Farben in HTML</h1>	
+
+	<p>
+		Wusstet ihr, dass es <u>über 16 Mio.</u> Farben gibt?<br>
+		Dabei ist es für einen Entwickler unmöglich sie alle in Worten anzugeben, da<br>
+		es nur <b>140 unterstütze Farbnamen</b> in HTML gibt.
+	</p>
+
+	<p>
+		Daher werden wir uns heute die Farbkodierungen 
+		<b>
+			<font color="#ff0000">R</font><font color="green">G</font><font color="#0000FF">B</font>
+		</b>
+			und 
+		<b>
+			HEX
+		</b>
+		genauer anschauen.
+	</p>
+
+	<h1>
+		<br>
+		<font color="#ff0000">R</font><font color="green">G</font><font color="#0000FF">B</font>:
+	</h1>
+
+	
+	<p>
+		CSS:<br>
+		<img src="colors.jpg" alt="CSS RGB Beispiel">
+	</p>
+
+	<p>
+		HTML:<br>
+		<img src="html_color.jpg" alt="HTML Farbbeispiel">
+	</p>
+
+	<p>
+		Ihr habt bestimmt schon mal sowas gesehen oder selbst beim Coden mithilfe eines Color-Pickers verwendet,<br>
+		aber was bedeutet das eigentlich?
+	</p>
+	<p>
+		Hex, auch Hexadezimal, ist eine Farbkodierung wie RGB, die etwas kürzer
+		ist, aber genau dasselbe bewirkt, nämlich die Darstellung der Farben. 
+	</p>
+	<p>
+		Na ja es ist ganz einfach. Beides sind identische Farben, aber <b>RGB gibt den Farbton genauer an.</b><br>
+		Um das zu verinnerlichen muss man erstmal verstehen, dass <b>der Computer durch das Dazugeben<br>
+		der Farben <font color=#FF0000>Rot(R)</font> <font color=#008000>Grün(G)</font> und <font color=#0000FF>Blau(B)</font>
+		jede Farbe darstellen kann.</b> Dies nennt man auch <a href="https://www.leifiphysik.de/optik/farben/grundwissen/additive-farbmischung">additive Farbmischung</a>,<br>
+		da Farben dazugegeben werden.<br>
+		<br>
+		Im Gegensatz dazu steht die <a href="https://www.leifiphysik.de/optik/farben/grundwissen/subtraktive-farbmischung">subtraktive Farbmischung</a>, die man aus dem Kunstunterricht kennt.<br>
+		Dabei werden bestimmte Farben des weiß reflektierten Lichtes, welches aus den 3 Grundfarben besteht,<br>
+		von der <b>Oberfläche eines bestrahlten Objektes absorbiert und der Rest wird reflektiert.</b><br>
+	</p>
+
+	<p>
+		<mark>Die Farbkodierung RGB gibt dabei für jede Farbe ihre Intensität im Gesamtbild an</mark>, jeweils eine für<br>
+		Rot, Grün und Blau.<br>
+		Bsp: <b>rgb(0,0,0)</b>, die Farbintensität ist hier für Rot= 0, Grün= 0 und Blau= 0, also ergibt es <b>eine schwarze Farbe,<br>
+		da keine der Farben addiert werden.</b><br>
+		<br>
+		<img src="schwarz_rgb.jpg" alt="rgb für Schwarz 0,0,0" width="156" height="44"><br>
+		<br>
+		Wenn man hingegen <b>rgb(255,255,255)</b> hat, dann ergibt es wiederum <b>Weiß, weil alle Farben<br>
+		miteinander addiert werden.</b><br>
+		<br>
+		<img src="weiss_rgb.jpg" alt="rgb für Weiß 255,255,255" width="156" height="44">
+	</p>
+
+	<p>
+		<b>Weitere Beispiele (<a href="https://www.pinterest.de/pin/599119556706750754/">Pinterest</a>):</b><br>
+		<img src="rgb_bsp.jpg" alt="beispielfarben">
+	</p>
+
+	<p>
+		Da es in der Kodierung drei Dezimalzahlen gibt, die maximal 255 sein können, lässt sich festellen, dass<br>
+		<strong>rgb aus 3 Bytes besteht oder 24 Bits</strong>, welche sich <b>in Binärzahlen umwandeln lassen.</b><br>
+	</p>
+
+	<p>
+		Zum Beispiel ist rgb <font color="#ff0000">255</font>,<font color="green">0</font>,<font color="#0000FF">255</font>
+		= <font color="#ff0000">11111111</font>,
+		<font color="green">00000000</font>,
+		<font color="#0000FF">11111111</font> <b>in Binär</b><br>
+		Jetzt fragt ihr euch ganz bestimmt, wozu wir diesen Binärcode brauchen und dazu kommen wir jetzt.
+	</p>
+
+	<br>
+	<h1>Hexadezimal (Hex):</h1>
+
+	<p>
+		CSS:<br>
+		<img src="hex_exm1.jpg" alt="CSS Hex Beispiel">
+	</p>
+
+	<p>
+		HTML:<br>
+		<img src="hex_exm2.jpg" alt="HTML Hex beispiel">
+	</p>
+
+	<p>
+		Ich bin mir sicher, dass euch diese Kombinationen aus # und Zahlen bereits bekannt vorkommt.<br>
+		<br>
+		Aber auch hier stellt sich die Frage, was das eigentlich ist. In diesem Fall ist es schnell<br>
+		beantwortet: <mark>Hex, auch Hexadezimal, ist eine Farbkodierung wie RGB, die etwas kürzer<br>
+		ist, aber genau dasselbe bewirkt, nämlich die Darstellung der Farben.</mark>
+	</p>
+
+	<p>
+		Und wie bereits erwähnt brauchen wir hierfür jetzt das Vorwissen über rgb und Binärzahlen.<br>
+		Genauer genommen brauchen wir jetzt den rgb Binärcode, um diesen in Hexadezimal umzuwandeln.
+	</p>
+
+	<ol>
+		<li>
+			<font size="4">				
+					Zuerst wandelt man die Zahlen aus rgb in Binär um. Nehmen wir<br>
+					das Beispiel von vorhin: <font color="#ff0000">255</font> <font color="green">0</font> <font color="#0000FF">255</font>
+					&#8594; <font color="#ff0000">11111111</font> <font color="green">00000000</font> <font color="#0000FF">11111111</font>
+		</font>
+		<p></p>
+		</li>
+
+		<li>
+			<font size="4">
+				Jetzt unterteilen wir die bytes in jeweils 4 separate Bits<br>
+				<font color="black">&#124;</font>
+				<font color="#ff0000">1111 <font color="black">&#124;</font> 1111</font><font color="black">&#124;</font>
+				<font color="green">0000 <font color="black">&#124;</font> 0000</font><font color="black">&#124;</font>
+				<font color="#0000FF">1111 <font color="black">&#124;</font> 1111</font><font color="black">&#124;</font>
+			</font>
+		</li>
+
+		<li>
+			<font size="4">
+			Wandeln wir diese 4er Päckchen wieder in Dezimalzahlen um, so haben wir<br>
+			fast unseren Hexadezimalcode für die Farbe Lila.
+			</font>
+			<br>
+			<br>
+		<table border="1" bgcolor="black">
+			<tr align="center" bgcolor="lightblue">
+				<th width="50">Binär:</th>
+				<td width="50">1111</td>
+				<td width="50">1111</td>
+				<td width="50"><b>0000</b></td>
+				<td width="50"><b>0000</b></td>
+				<td width="50">1111</td>
+				<td width="50">1111</td>
+			</tr>
+			<tr align="center" bgcolor="white">
+				<th>Dezimal:</th>
+				<td>15</td>
+				<td>15</td>
+				<td>0</td>
+				<td>0</td>
+				<td>15</td>
+				<td>15</td>
+			</tr>
+		</table>
+		<br>
+		</li>
+
+		<li>
+			<font size="4">
+				Schließlich brauchen wir nur noch diese Dezimalzahlen mit den entsprechenden<br>
+				Zeichen zu ersetzen. Für die Dezimalzahlen 0-9 nimmt man einfach auch 0-9<br>
+				für die Zahlen 10-15 nimmt man dann aber die Großbuchstaben A-F
+			</font>
+			<p></p>
+		</li>
+
+		<li>
+			<font size="4">
+				Die 15 ersetzen wir mit "F" und die 0 bleibt "0", da sie im Bereich 0-9 liegt<br>
+				so sieht dann unser Hexadezimalcode für die Farbe Lila aus:
+			</font>
+				<br>
+				<br>
+				<table border="1" bgcolor="black">
+					<tr align="center" bgcolor="lightblue">
+						<th width="50">Binär:</th>
+						<td width="50">1111</td>
+						<td width="50">1111</td>
+						<td width="50"><b>0000</b></td>
+						<td width="50"><b>0000</b></td>
+						<td width="50">1111</td>
+						<td width="50">1111</td>
+					</tr>
+					<tr align="center" bgcolor="white">
+						<th>Dezimal:</th>
+						<td>15</td>
+						<td>15</td>
+						<td>0</td>
+						<td>0</td>
+						<td>15</td>
+						<td>15</td>
+					</tr>
+					<tr align="center" bgcolor="white">
+						<th>Hexadezimal:</th>
+						<td>F</td>
+						<td>F</td>
+						<td>0</td>
+						<td>0</td>
+						<td>F</td>
+						<td>F</td>
+					</tr>
+				</table>
+				<br>
+				Ein # davor und schon können wir die Farbe Lila in Hex angeben &#8594; #FF00FF
+				<br>
+				<br>
+				<img src="magenta.jpg" alt="Magenta Farbe" height="80", width="207">
+		</li>
+	</ol>
+
+	<p>
+		<b>Weiteres Beispiel:</b><br>
+	</p>
+	<table border="1" bgcolor="black">
+		<tr align="center" bgcolor="lightblue">
+			<th width="50">Binär:</th>
+			<td width="50">0010</td>
+			<td width="50">1010</td>
+			<td width="50"><b>1101</b></td>
+			<td width="50"><b>0001</b></td>
+			<td width="50">0001</td>
+			<td width="50">0011</td>
+		</tr>
+		<tr align="center" bgcolor="white">
+			<th>Dezimal:</th>
+			<td>15</td>
+			<td>15</td>
+			<td>0</td>
+			<td>0</td>
+			<td>15</td>
+			<td>15</td>
+		</tr>
+		<tr align="center" bgcolor="white">
+			<th>Hexadezimal:</th>
+			<td>2</td>
+			<td>F</td>
+			<td>D</td>
+			<td>1</td>
+			<td>1</td>
+			<td>3</td>
+		</tr>
+	</table>
+
+	<p>
+			<font size="5">&#8594;</font> #2FD113<br>
+	</p>
+
+	<img src="neon_green.jpg" alt="Neon Grüne" height="80", width="207">
+	<br>
+	
+	<h1>Umrechnung der Zahlensysteme:</h1>
+	<h2>1.&#41; Binär&#8594;Dezimal</h2>
+	<p>
+		Um das Wissen über die Zahlensysteme weiter zu vertiefen, sollte man<br>
+		auch wissen, <b>wie man diese umrechnen kann.</b>
+	</p>
+	<p>
+		Wiederholen wir zunächst aber die Umrechnung von Binär in Dezimal<br>
+		und umgekehrt<br>
+		Das Binärsystem basiert auf 2er Potenzen und lässt sich auch mit diesem errechnen.<br>
+		<font color="#0000FF">11001</font> wäre in Dezimal somit <b>die Summe aller Potenzen multipliziert mit der jeweiligen<br>
+		Zahl an der Stelle der Potenz</b>
+		<br>
+		<font color="#0000FF">11001</font> = <font color="#0000FF">1</font>&#215;2<sup>4</sup> + 
+		<font color="#0000FF">1</font>&#215;2<sup>3</sup> + <font color="#0000FF">0</font>&#215;2<sup>2</sup>
+		+ <font color="#0000FF">0</font>&#215;2<sup>1</sup> + <font color="#0000FF">1</font>&#215;2<sup>0</sup>
+		<br>
+		<font color="#0000FF">11001<sub>2</sub></font> = 25<sub>10</sub>
+		<br>
+		<br>
+		&#8594; also ist <b>11001</b> oder auch <b>11001<sub>2</sub></b> in Binär
+		gleich <b>25</b> bzw <b>25<sub>10</sub></b> in Dezimal
+		<h2>2.&#41; Dezimal&#8594;Binär</h2>
+		<p>
+		Um eine Dezimalzahl dann in Binär umzurechnen schaut man, was die höchste 2er Potenz ist, die<br>
+		in die Dezimalzahl rein passt. Dabei ergibt sich ein Rest, mit dem man die selbe Prozedur macht<br>
+		<br>
+		<font color="#0000FF">75</font> zu Binär würde somit die Potenzen <font color="#ff0000">2<sup>6</sup></font>, 
+		<font color="#ff0000">2<sup>3</sup></font>, <font color="#ff0000">2<sup>1</sup></font> und 
+		<font color="#ff0000">2<sup>0</sup></font><br>
+		bzw. die Zahlen 64, 8, 2 und 1 ergeben. Aus dem höchsten Exponenten 6 und niedrigstem Exponenten 0 <br>
+		erfahren wir, dass unsere Binärzahl 7 Stellen hat. Wir brauchen nur noch die Lücken zwischen den Potenzen<br>
+		mit 0 zu füllen und dann haben wir unsere Dezimalzahl.<br>
+		<ol>
+			<li>
+				<font color="#0000FF">75</font> = <font color="#0000FF">1</font>&#215;<font color="#ff0000">2<sup>6</sup></font>
+				+ <font color="#0000FF">1</font>&#215;<font color="#ff0000">2<sup>3</sup></font>
+				+ <font color="#0000FF">1</font>&#215;<font color="#ff0000">2<sup>1</sup></font>
+				+ <font color="#0000FF">1</font>&#215;<font color="#ff0000">2<sup>0</sup></font>
+				/ Reihenfolge mit Nullen vervollständigen 
+			</li>
+			<li>
+				<font color="#0000FF">75</font> = <font color="#0000FF">1</font>&#215;<font color="#ff0000">2<sup>6</sup></font>
+				+ <font color="#0000FF">0</font>&#215;<font color="#ff0000">2<sup>3</sup></font> 
+				+ <font color="#0000FF">0</font>&#215;2<sup>4</sup>
+				+ <font color="#0000FF">1</font>&#215;2<sup>3</sup> 
+				+ <font color="#0000FF">0</font>&#215;2<sup>2</sup>
+				+ <font color="#0000FF">1</font>&#215;<font color="#ff0000">2<sup>1</sup></font> 
+				+ <font color="#0000FF">1</font>&#215;<font color="#ff0000">2<sup>0</sup></font>
+				/ Ausrechnen
+			</li>
+			<li>
+				<font color="#0000FF">75<sub>10</sub></font> = <font color="#ff0000">1001011<sub>2</sub></font>
+			</li>
+		</ol>
+		<p>
+			&#8594; also ist <b>75</b> oder auch <b>75<sub>10</sub></b> in Dezimal
+			gleich <b>1001011</b> bzw <b>1001011<sub>2</sub></b> in Binär
+		</p>
+
+	</p>
+	<br>
+	<h1>Umrechnung von Hexadezimal:</h1>
+	<h2>1.&#41; Hexadazimal&#8594;Dezimal</h2>
+	<p>
+		Analog zur Umrechnung von Binärzahlen, gilt das selbe für Hexadezimalzahlen,<br>
+		aber bei Hexadezimal wird mit 16er Potenzen gerechnet.<br>
+		Nehmen wir als Beispiel <font color="#0000FF">9C2F</font>, hier haben wir die Potenzen 
+		<font color="#ff0000">
+		16<sup>3</sup>, 16<sup>2</sup>,
+		16<sup>1</sup>, 16<sup>0</sup>
+		</font>
+		<br>
+		bzw die Zahlen <font color="#ff0000">4096, 256, 16, 1</font><br>
+		jetzt errechnen wir die Summe aller Potenzen multipliziert mit der jeweiligen<br>
+		Zahl/Symbol an der Stelle der Potenz
+	</p>
+	<ol>
+		<li>
+			<font color="#0000FF">9C2F</font> = 
+			<font color="#0000FF">9</font>&#215;<font color="#ff0000">16<sup>3</sup></font> + 
+			<font color="#0000FF">C</font>&#215;<font color="#ff0000">16<sup>2</sup></font> +
+			<font color="#0000FF">2</font>&#215;<font color="#ff0000">16<sup>1</sup></font> + 
+			<font color="#0000FF">F</font>&#215;<font color="#ff0000">16<sup>0</sup></font>
+			/ Jetzt C und F in Zahlen aus Hex umwandeln
+		</li>
+		<li>
+			<font color="#0000FF">9C2F</font> = 
+			<font color="#0000FF">9</font>&#215;<font color="#ff0000">16<sup>3</sup></font> + 
+			<font color="#0000FF">12</font>&#215;<font color="#ff0000">16<sup>2</sup></font> +
+			<font color="#0000FF">2</font>&#215;<font color="#ff0000">16<sup>1</sup></font> + 
+			<font color="#0000FF">15</font>&#215;<font color="#ff0000">16<sup>0</sup></font>
+			/ Ausrechnen
+		</li>
+		<li>
+			<font color="#0000FF">9C2F<sub>16</sub></font> = <font color="#ff0000">40083<sub>10</sub></font>
+		</li>
+	</ol>
+	<p>
+		&#8594; also ist <b>9C2F</b> oder auch <b>9C2F<sub>16</sub></b> in Hexadazimal
+		gleich <b>40083</b> bzw <b>40083<sub>10</sub></b> in Dezimal
+	</p>
+	<h2>2.&#41; Dezimal&#8594;Hexadazimal</h2>
+	<p>
+		Um eine Dezimalzahl in Hexadezimal umzuwandeln, teile die Dezimalzahl wiederholt durch 16<br>
+		und notiere die Reste. Das Ergebnis ist die Hexadezimalzahl in umgekehrter Reihenfolge.
+	</p>
+	<ol>
+		<li>
+			<font color="#5c0a5c">36223</font> ÷
+			<font color="#ff0000">16</font> = 
+			2263
+			<b>Rest <font color="#0000FF">15</font></b>
+		</li>
+		<li>
+			<font color="#5c0a5c">2263</font> ÷ 
+			<font color="#ff0000">16</font> = 
+			141 
+			<b>Rest <font color="#0000FF">7</font></b>
+		</li>
+		<li>
+			<font color="#5c0a5c">141</font> ÷
+			<font color="#ff0000">16</font> =
+			8 
+			<b>Rest <font color="#0000FF">13</font></b>
+		</li>
+		<li>
+			<font color="#5c0a5c">8</font> ÷
+			<font color="#ff0000">16</font> = 
+			0 
+			<b>Rest <font color="#0000FF">8</font></b>
+		</li>
+	</ol>
+	<p>
+		Jetzt den Rest in umgekehreter Reihenfolge aufschreiben
+		&#8594;
+		<font color="#0000FF">8</font>
+		<font color="#0000FF">13</font>
+		<font color="#0000FF">7</font>
+		<font color="#0000FF">15</font><br>
+		Schließlich wandeln wir diese Zahlen in Hexadezimalzahlen um
+		&#8594;
+		<font color="#0000FF">8</font>
+		<font color="#0000FF">D</font>
+		<font color="#0000FF">7</font>
+		<font color="#0000FF">F</font>
+	</p>
+	<p>
+		Die Dezimalzahl <b>36223<sub>10</sub></b> ist somit die Hexadezimalzahl <b>8D7F<sub>16</sub></b>
+	</p>
+</body>
+
+</html>

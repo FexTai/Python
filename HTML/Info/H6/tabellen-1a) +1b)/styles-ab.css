@@ -1,0 +1,91 @@
+body {
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+table.stundenplan {
+    border-collapse: collapse;
+    width: 100%;
+    font-family: "arial";
+    font-size: 0.9em;
+    margin-bottom: 5px;
+}
+
+th, td {
+    width: 20%;
+    border: 2px solid black;
+    padding: 12px 15px;
+    transition: 0.15s;
+}
+
+td.deu:hover, td.mathe:hover,
+td.eng:hover, td.latein:hover,
+td.geschi:hover, td.powi:hover,
+td.met:hover, td.info:hover,
+td.ethik:hover, td.chemie:hover,
+td.physik:hover, td.sport:hover,
+td.kunst:hover {
+    font-size: 140%;
+}
+
+tr {
+    text-align: center;
+}
+
+.deu, 
+.eng,
+.mathe, 
+.latein {
+    font-family: "Times New Roman";
+}
+
+.deu {
+    background-color: #4b86b4;
+}
+
+.mathe {
+    background-color: #f96161;
+}
+
+.eng {
+    background-color: #ffb347;
+}
+
+.latein {
+    background-color: #64bf6a;
+}
+
+.chemie {
+    background-color: #fff49b;
+}
+
+.physik {
+    background-color: #32ab9f;
+}
+
+.ethik {
+    background-color: #d469a5;
+}
+
+.powi {
+    background-color: 	#aaaaaa;
+}
+
+.geschi {
+    background-color: #83503f;
+}
+
+.info {
+    background-color: 	#ff9b9b;
+}
+
+.kunst {
+    background-color: #6f6363;
+}
+
+.met {
+    background-color: #ffe3c6;
+}
+
+.sport {
+    background-color: #a20021;
+}

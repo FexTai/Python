@@ -1,0 +1,20 @@
+body {
+	font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+	font-size: 0.9em;
+	color: #3BBA9C;
+	line-height: 1.45em;
+}
+
+span {
+	text-decoration-line: underline;
+}
+
+h3 {
+	padding-left: 0.6em;
+}
+
+h3:hover, 
+ul li:hover {
+	color: white;
+	transition: 0.15s;
+}

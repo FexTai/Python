@@ -1,0 +1,55 @@
+body {
+    height: 3000px;
+    padding-top: 7em;
+    padding-left: 5em;
+}
+
+#sidebar {
+    background-color: green;
+    color: white;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    top: 5em;
+    width: 72px;
+}
+
+#header {
+    background-color: black;
+    color: white;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 5em;
+}
+
+#div1 {
+    background-color: lightblue;
+    height: 200px;
+    width: 200px;
+    position: static;
+}
+
+#div2 {
+    background-color: lightpink;
+    height: 200px;
+    width: 200px;
+}
+
+#blur {
+    display: flex;
+    background-color: rgba(0, 0, 0, 0.8);
+    position: fixed;
+    right: 0;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal {
+    background-color: white;
+    padding: 1em;
+}

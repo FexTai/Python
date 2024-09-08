@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="JAVA_MODULE" version="4">
+  <component name="NewModuleRootManager" inherit-compiler-output="true">
+    <exclude-output />
+    <content url="file://$MODULE_DIR$">
+      <sourceFolder url="file://$MODULE_DIR$/J1" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/J4" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/J5" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/J7" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/java Course" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/J10" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/J6" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/J8" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/J9" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/java Course (OOP)" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/bmi_objects" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/arrays_of_objects" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Java Course (Encapsulation)" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Java Course (Packages)" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Java Course (copy Objects)" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Java Course (Polymorphism)" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Java Course (interface)" isTestSource="false" />
+    </content>
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+  </component>
+</module>
