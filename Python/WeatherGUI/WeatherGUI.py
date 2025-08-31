@@ -1,240 +1,272 @@
 import customtkinter
-from translate import Translator
-import requests
 from PIL import Image
+import requests
 import os
 
-# helpVar
-hv = 0
-hv2 = 0
+# optional translator
+try:
+    from translate import Translator
+    _translator = Translator(to_lang="de")
+    def translate_text(s):
+        try:
+            return _translator.translate(s)
+        except Exception:
+            return s
+except Exception:
+    _translator = None
+    def translate_text(s):
+        return s
 
-# main window
+# Konfiguration
 customtkinter.set_appearance_mode("dark")
 customtkinter.set_default_color_theme("blue")
 
 root = customtkinter.CTk()
 root.geometry("600x800")
 root.resizable(False, False)
-
 root.title("Wettervorhersage")
 
 frame = customtkinter.CTkFrame(master=root)
 frame.pack(pady=20, padx=60, fill="both", expand=True)
 
-# Icon Collection
-search_icon = customtkinter.CTkImage(dark_image=Image.open("search.png"))
+# Basisverzeichnis für Bilder (Verzeichnis der aktuellen Datei)
+base_dir = os.path.dirname(__file__)
 
-cloudy_icon = os.path.join(os.path.dirname(__file__), "cloudy.png")
-img1 = customtkinter.CTkImage(light_image=Image.open(cloudy_icon), size=(110, 110))
+# Hilfsfunktion: CTkImage sicher laden
+def load_ctkimage(fname, size=None):
+    path = os.path.join(base_dir, fname)
+    if not os.path.isfile(path):
+        print(f"[WARN] Bild nicht gefunden: {path}")
+        return None
+    try:
+        pil = Image.open(path)
+        if size:
+            return customtkinter.CTkImage(light_image=pil, size=size)
+        return customtkinter.CTkImage(light_image=pil)
+    except Exception as e:
+        print(f"[WARN] Fehler beim Laden von {path}: {e}")
+        return None
 
-cold_icon = os.path.join(os.path.dirname(__file__), "cold.png")
-img2 = customtkinter.CTkImage(light_image=Image.open(cold_icon), size=(40, 40))
+# Icons
+search_icon = load_ctkimage("SH.png", size=(24, 24))
+img_cloudy = load_ctkimage("cloudy.png", size=(110, 110))
+img_cold = load_ctkimage("cold.png", size=(40, 40))
+img_hot = load_ctkimage("hot.png", size=(40, 40))
+img_partly = load_ctkimage("partially sunny.png", size=(110, 110))
+img_rainy = load_ctkimage("rainy.png", size=(110, 110))
+img_snow = load_ctkimage("snowy.png", size=(110, 110))
+img_sunny = load_ctkimage("sunny.png", size=(110, 110))
+img_thunder = load_ctkimage("thunder.png", size=(110, 110))
+img_wind = load_ctkimage("wind1.png", size=(40, 40))
+img_tmz = load_ctkimage("timezone.png", size=(43, 43))
+img_hum = load_ctkimage("humidity.png", size=(40, 40))
+img_cl = load_ctkimage("clar.png", size=(40, 40))
+img_haze = load_ctkimage("haze.png", size=(110, 110))
+img_drizzle = load_ctkimage("drizzle.png", size=(110, 110))
+img_fog = load_ctkimage("foggy.png", size=(110, 110))
 
-hot_icon = os.path.join(os.path.dirname(__file__), "hot.png")
-img3 = customtkinter.CTkImage(light_image=Image.open(hot_icon), size=(40, 40))
-
-parsunny_icon = os.path.join(os.path.dirname(__file__), "partially sunny.png")
-img4 = customtkinter.CTkImage(light_image=Image.open(parsunny_icon), size=(110, 110))
-
-rainy_icon = os.path.join(os.path.dirname(__file__), "rainy.png")
-img5 = customtkinter.CTkImage(light_image=Image.open(rainy_icon), size=(110, 110))
-
-snowy_icon = os.path.join(os.path.dirname(__file__), "snowy.png")
-img6 = customtkinter.CTkImage(light_image=Image.open(snowy_icon), size=(110, 110))
-
-sunny_icon = os.path.join(os.path.dirname(__file__), "sunny.png")
-img7 = customtkinter.CTkImage(light_image=Image.open(sunny_icon), size=(110, 110))
-
-thunder_icon = os.path.join(os.path.dirname(__file__), "thunder.png")
-img8 = customtkinter.CTkImage(light_image=Image.open(thunder_icon), size=(110, 110))
-
-wind_icon = os.path.join(os.path.dirname(__file__), "wind1.png")
-img9 = customtkinter.CTkImage(light_image=Image.open(wind_icon), size=(40, 40))
-
-tmzone_icon = os.path.join(os.path.dirname(__file__), "timezone.png")
-img0 = customtkinter.CTkImage(light_image=Image.open(tmzone_icon), size=(43, 43))
-
-humidity_icon = os.path.join(os.path.dirname(__file__), "humidity.png")
-img11 = customtkinter.CTkImage(light_image=Image.open(humidity_icon), size=(40, 40))
-
-clarity_icon = os.path.join(os.path.dirname(__file__), "clar.png")
-img12 = customtkinter.CTkImage(light_image=Image.open(clarity_icon), size=(40, 40))
-
-haze_icon = os.path.join(os.path.dirname(__file__), "haze.png")
-img13 = customtkinter.CTkImage(light_image=Image.open(haze_icon), size=(110, 110))
-
-drizzle_icon = os.path.join(os.path.dirname(__file__), "drizzle.png")
-img14 = customtkinter.CTkImage(light_image=Image.open(drizzle_icon), size=(110, 110))
-
-foggy_icon = os.path.join(os.path.dirname(__file__), "foggy.png")
-img15 = customtkinter.CTkImage(light_image=Image.open(foggy_icon), size=(110, 110))
-
-# Openweather API key
+# OpenWeather API key
 api_key = "d355490244cb91be451de6d43bf1c4b3"
 
-url = ""
-weather_data = []
+# Hilfsfunktion: Formatiere Zeitzone (z.B. UTC+5:30)
+def format_timezone(seconds_offset):
+    sign = "+" if seconds_offset >= 0 else "-"
+    seconds = abs(int(seconds_offset))
+    hours = seconds // 3600
+    minutes = (seconds % 3600) // 60
+    if minutes == 0:
+        return f"UTC{sign}{hours}"
+    return f"UTC{sign}{hours}:{minutes:02d}"
+
+# --- Widgets ---
+city_var = customtkinter.StringVar()
+entry_city = customtkinter.CTkEntry(master=root, textvariable=city_var, font=("Arial", 18))
+entry_city.place(x=210, y=25)
+
+# Labels (erzeugt, aber noch nicht platziert)
+label_notfound = customtkinter.CTkLabel(frame, text="Leider nichts gefunden!", font=("Arial", 20))
+label_sad = customtkinter.CTkLabel(frame, text="☹", font=("", 50))
+
+label_citycountry = customtkinter.CTkLabel(frame, text="", font=("Arial", 30))
+label_temp = customtkinter.CTkLabel(frame, text="", font=("Arial", 50))
+label_feels = customtkinter.CTkLabel(frame, text="", font=("Arial", 18))
+label_temp_min = customtkinter.CTkLabel(frame, text="", font=("Arial", 20))
+label_temp_max = customtkinter.CTkLabel(frame, text="", font=("Arial", 20))
+label_wind = customtkinter.CTkLabel(frame, text="", font=("Arial", 20))
+label_tz = customtkinter.CTkLabel(frame, text="", font=("Arial", 20))
+label_humidity = customtkinter.CTkLabel(frame, text="", font=("Arial", 20))
+label_visibility = customtkinter.CTkLabel(frame, text="", font=("Arial", 20))
+label_weatherinfo = customtkinter.CTkLabel(frame, text="", font=("Arial", 20), width=300, height=20)
+label_weathericon = customtkinter.CTkLabel(frame, image=img_cloudy, text="")
+
+# kleine Icon-Labels
+label_icon_hot = customtkinter.CTkLabel(frame, image=img_hot, text="")
+label_icon_cold = customtkinter.CTkLabel(frame, image=img_cold, text="")
+label_icon_wind = customtkinter.CTkLabel(frame, image=img_wind, text="")
+label_icon_tz = customtkinter.CTkLabel(frame, image=img_tmz, text="")
+label_icon_hum = customtkinter.CTkLabel(frame, image=img_hum, text="")
+label_icon_vis = customtkinter.CTkLabel(frame, image=img_cl, text="")
+
+# Theme-Auswahlmenü
+def change_appearance(choice):
+    mapping = {"Dunkel": "dark", "Hell": "light", "System": "system"}
+    mode = mapping.get(choice, choice.lower())
+    try:
+        customtkinter.set_appearance_mode(mode)
+    except Exception as e:
+        print("Fehler beim Wechseln des Themes:", e)
+
+# CTkOptionMenu erlaubt direkte Auswahl von Dunkel/Hell/System
+theme_menu = customtkinter.CTkOptionMenu(root, values=["Dunkel", "Hell", "System"], command=change_appearance)
+# Default passend zur initialen Einstellung oben
+theme_menu.set("Dunkel")
+theme_menu.place(x=10, y=5)
+
+# Button 
+btn_search = customtkinter.CTkButton(root, width=30, height=30, text=" ", image=search_icon, hover_color="cyan")
+btn_search.place(x=350, y=25)
 
 
-# Funktionen
 
 def click():
-    global url, weather_data, city, hv, hv2, labs1, labs2
-    label.place_forget()
-    label1.place_forget()
-    labs1.place_forget()
-    labs2.place_forget()
-    hf = city.get()
-    url = "http://api.openweathermap.org/data/2.5/weather?q=" + hf + "&APPID=" + api_key
-    weather_data = requests.get(url).json()
+    city_name = city_var.get().strip()
+    # vorherige Anzeige zurücksetzen
+    for w in (label_notfound, label_sad, label_citycountry, label_temp, label_feels,
+              label_temp_min, label_temp_max, label_wind, label_tz, label_humidity,
+              label_visibility, label_weatherinfo, label_weathericon):
+        try:
+            w.place_forget()
+            w.pack_forget()
+        except Exception:
+            pass
+
+    if not city_name:
+        label_notfound.configure(text="Bitte Stadt eingeben")
+        label_notfound.place(x=140, y=50)
+        return
+
+    url = f"http://api.openweathermap.org/data/2.5/weather?q={city_name}&APPID={api_key}"
     try:
-        if weather_data["message"] == "city not found":
-            label.place(x=140, y=50)
-            label1.place(x=220, y=70)
-    except:
-        translator = Translator(to_lang="de")
-        eng_weatherinfo = str(weather_data["weather"][0]["description"])
-        zone = weather_data["timezone"]
-        utc = abs(zone // 3600)
-        if zone > 0:
-            hv = "+"
-        elif zone < 0:
-            hv = "-"
-        # Navigieren durch die Datenbank von weather_data
-        print(weather_data)
+        resp = requests.get(url, timeout=8)
+        data = resp.json()
+    except Exception as e:
+        label_notfound.configure(text="Fehler bei der Netzwerkverbindung")
+        label_notfound.place(x=140, y=50)
+        print("Request-Fehler:", e)
+        return
 
-        # Wetter icons auswählen
-        if weather_data["weather"][0]["main"] == "Clear":
-            label_weathericon.configure(image=img7)
-        elif weather_data["weather"][0]["main"] == "Haze":
-            label_weathericon.configure(image=img13)
-        elif weather_data["weather"][0]["main"] == "Clouds":
-            if weather_data["weather"][0]["description"] == "overcast clouds":
-                label_weathericon.configure(image=img1)
-            else:
-                label_weathericon.configure(image=img4)
-        elif weather_data["weather"][0]["main"] == "Rain":
-            label_weathericon.configure(image=img1)
-        elif weather_data["weather"][0]["main"] == "Drizzle":
-            label_weathericon.configure(image=img14)
-        elif weather_data["weather"][0]["main"] == "Snow":
-            label_weathericon.configure(image=img6)
-        elif weather_data["weather"][0]["main"] == "Thunderstorm":
-            label_weathericon.configure(image=img8)
-        elif weather_data["weather"][0]["main"] == "Fog" or weather_data["weather"][0]["main"] == "Mist":
-            label_weathericon.configure(image=img15)
+    # Fehlerbehandlung der API-Antwort
+    if resp.status_code != 200 or data.get("cod") != 200:
+        msg = data.get("message", "Stadt nicht gefunden")
+        label_notfound.configure(text=f"{msg}")
+        label_sad.place(x=220, y=70)
+        label_notfound.place(x=140, y=50)
+        return
 
-        # Wetterdaten einblenden
-        labelct.configure(text=str(weather_data["name"]) + ", " + str(weather_data["sys"]["country"]))
-        labelct.pack(padx=0, pady=70)
+    # Übersetze Wetterbeschreibung (Fallback möglich)
+    eng_weatherinfo = str(data["weather"][0]["description"]) if data.get("weather") else ""
+    translated = translate_text(eng_weatherinfo)
 
-        # Temperatur
-        labelt.configure(text=str(round((weather_data["main"]["temp"]) - 275.15, 1)) + "°")
-        labelt.place(x=55, y=130)
+    # Wähle Icon nach Hauptwetter
+    main = data["weather"][0]["main"] if data.get("weather") else ""
+    desc = data["weather"][0]["description"] if data.get("weather") else ""
 
-        # gefühlte Temperatur
-        labelfk.configure(text="gefühlt " + str(round((weather_data["main"]["feels_like"]) - 275.15, 1)) + "°")
-        labelfk.place(x=55, y=200)
+    if main == "Clear":
+        img = img_sunny
+    elif main == "Haze":
+        img = img_haze
+    elif main == "Clouds":
+        img = img_cloudy if desc == "overcast clouds" else img_partly
+    elif main == "Rain":
+        img = img_rainy
+    elif main == "Drizzle":
+        img = img_drizzle
+    elif main == "Snow":
+        img = img_snow
+    elif main == "Thunderstorm":
+        img = img_thunder
+    elif main in ("Fog", "Mist"):
+        img = img_fog
+    else:
+        img = img_cloudy
 
-        # Tiefsttemperatur
-        labeltf.configure(text=str(round((weather_data["main"]["temp_min"]) - 275.15, 1)) + "°")
-        labeltf.place(x=95, y=365)
-        label_cold.place(x=50, y=355)
+    if img is not None:
+        label_weathericon.configure(image=img)
 
-        # Windgeschwindigkeit
-        label_speed.configure(text=str(weather_data["wind"]["speed"]) + "m/s")
-        label_speed.place(x=305, y=320)
-        label_wind.place(x=260, y=310)
+    # Stadt, Land
+    label_citycountry.configure(text=f"{data.get('name','')} , {data.get('sys',{}).get('country','')}")
+    label_citycountry.pack(padx=0, pady=70)
 
-        # Höchsttemperatur
-        labelht.configure(text=str(round((weather_data["main"]["temp_max"]) - 275.15, 1)) + "°")
-        labelht.place(x=95, y=320)
-        label_hot.place(x=50, y=310)
+    # Temperaturen: Kelvin -> Celsius (korrekt: -273.15)
+    try:
+        temp = data['main']['temp'] - 273.15
+        feels = data['main']['feels_like'] - 273.15
+        tmin = data['main']['temp_min'] - 273.15
+        tmax = data['main']['temp_max'] - 273.15
 
-        # Zeitzone
-        label.tmz.configure(text="UTC" + hv + str(utc))
-        label_tmz.place(x=257, y=355)
-        label.tmz.place(x=305, y=365)
+        label_temp.configure(text=f"{round(temp,1)}°")
+        label_temp.place(x=55, y=130)
 
-        # Luftfeuchtigkeit
-        label_hum.configure(text=str(weather_data["main"]["humidity"]) + "%")
-        label_hum.place(x=97, y=410)
-        label_hicon.place(x=50, y=400)
+        label_feels.configure(text=f"gefühlt {round(feels,1)}°")
+        label_feels.place(x=55, y=200)
 
-        # Sichtweite
-        label_cl.configure(text=str(weather_data["visibility"]) + "m")
-        label_cl.place(x=305, y=410)
-        label_clicon.place(x=260, y=400)
+        label_temp_min.configure(text=f"{round(tmin,1)}°")
+        label_temp_min.place(x=95, y=365)
+        label_icon_cold.place(x=50, y=355)
 
-        # Wettericon
-        label_weathericon.place(x=270, y=130)
+        label_temp_max.configure(text=f"{round(tmax,1)}°")
+        label_temp_max.place(x=95, y=320)
+        label_icon_hot.place(x=50, y=310)
+    except Exception as e:
+        print("Temperatur-Daten fehlen:", e)
 
-        # Wetterbeschreibung
-        label_weatherinfo.configure(text=str(translator.translate(eng_weatherinfo)))
-        label_weatherinfo.place(relx=0.985, rely=0.35, anchor="e")
+    # Wind
+    try:
+        wind_speed = data.get('wind', {}).get('speed', '')
+        label_wind.configure(text=f"{wind_speed} m/s")
+        label_wind.place(x=305, y=320)
+        label_icon_wind.place(x=260, y=310)
+    except Exception as e:
+        print("Wind-Daten fehlen:", e)
+
+    # Zeitzone
+    try:
+        tz_seconds = data.get('timezone', 0)
+        tz_str = format_timezone(tz_seconds)
+        label_tz.configure(text=tz_str)
+        label_tz.place(x=305, y=365)
+        label_icon_tz.place(x=257, y=355)
+    except Exception as e:
+        print("Zeitzone Fehler:", e)
+
+    # Luftfeuchtigkeit
+    try:
+        humidity = data['main']['humidity']
+        label_humidity.configure(text=f"{humidity}%")
+        label_humidity.place(x=97, y=410)
+        label_icon_hum.place(x=50, y=400)
+    except Exception as e:
+        print("Humidity fehlt:", e)
+
+    # Sichtweite
+    try:
+        visibility = data.get('visibility', '')
+        label_visibility.configure(text=f"{visibility} m")
+        label_visibility.place(x=305, y=410)
+        label_icon_vis.place(x=260, y=400)
+    except Exception as e:
+        print("Visibility fehlt:", e)
+
+    # Wetterbeschreibung
+    label_weatherinfo.configure(text=translated)
+    label_weatherinfo.place(relx=0.985, rely=0.35, anchor="e")
+
+    # Icon platzieren
+    label_weathericon.place(x=270, y=130)
 
 
-def change():
-    global f1, f2
-    f1 = customtkinter.CTkCheckBox(root, offvalue=0, onvalue=1, text="Dark mode").place(x=0, y=0)
-    f2 = customtkinter.CTkCheckBox(root, offvalue=2, onvalue=3, text="Ligt mode").place(x=0, y=25)
+# Verbinde Button mit Funktion
+btn_search.configure(command=click)
 
-
-# Buttons
-suche = customtkinter.CTkButton(root, width=30, height=30, text=" ", image=search_icon, command=click,
-                                hover_color="cyan").place(x=350, y=25)
-
-opt = customtkinter.CTkButton(root, width=30, height=30, text="///", command=change).pack()
-
-# Text labels
-city = customtkinter.StringVar()
-city1 = customtkinter.CTkEntry(master=root, textvariable=city, font=("Arial", 18))
-city1.place(x=210, y=25)
-
-label = customtkinter.CTkLabel(frame, text="Leider nichts gefunden!", font=("Arial", 20))  # Nichts gefunden
-label1 = customtkinter.CTkLabel(frame, text="☹", font=("", 50))
-
-labelct = customtkinter.CTkLabel(frame, text="", font=("Arial", 30))
-
-labelt = customtkinter.CTkLabel(frame, text="", font=("Arial", 50))
-
-labelfk = customtkinter.CTkLabel(frame, text="", font=("Arial", 18))
-
-labeltf = customtkinter.CTkLabel(frame, text="", font=("Arial", 20))
-
-labelht = customtkinter.CTkLabel(frame, text="", font=("Arial", 20))
-
-label_speed = customtkinter.CTkLabel(frame, text="", font=("Arial", 20))
-
-label.tmz = customtkinter.CTkLabel(frame, text="", font=("Arial", 20))
-
-label_hum = customtkinter.CTkLabel(frame, text="", font=("Arial", 20))
-
-label_cl = customtkinter.CTkLabel(frame, text="", font=("Arial", 20))
-
-label_weatherdesc = customtkinter.CTkLabel(frame, text="", font=("Arial", 20))
-
-label_weatherinfo = customtkinter.CTkLabel(frame, text="", font=("Arial", 20), width=300, height=20)
-
-f1 = customtkinter.CTkCheckBox(root, offvalue=0, onvalue=1, text="Dark mode")
-
-f2 = customtkinter.CTkCheckBox(root, offvalue=2, onvalue=3, text="Ligt mode")
-
-# Icon labels
-label_weather = customtkinter.CTkLabel(frame, image="", text="")
-
-label_hot = customtkinter.CTkLabel(frame, image=img3, text="")
-
-label_cold = customtkinter.CTkLabel(frame, image=img2, text="")
-
-label_wind = customtkinter.CTkLabel(frame, image=img9, text="")
-
-label_tmz = customtkinter.CTkLabel(frame, image=img0, text="")
-
-label_hicon = customtkinter.CTkLabel(frame, image=img11, text="")
-
-label_clicon = customtkinter.CTkLabel(frame, image=img12, text="")
-
-label_weathericon = customtkinter.CTkLabel(frame, image=img1, text="")
-
+# mainloop
 root.mainloop()
